@@ -47,6 +47,7 @@ class StatistiqueController extends Controller
     }
 
    foreach ($classe_ar as $key => $value) {
+    if($value!=")") {
     $chart_options2 = [
         'chart_title' => ' التلاميذ حسب المستوى'.' '.$key+1,
         'report_type' => 'group_by_relationship',
@@ -57,8 +58,22 @@ class StatistiqueController extends Controller
         'chart_color' => $color[$key],
         'where_raw' => 'status_eleve=1 AND id_classe IN '.$value,
 
-    ];
+    ];}
+    else{
+        $chart_options2 = [
+            'chart_title' => ' التلاميذ حسب المستوى'.' '.$key+1,
+            'report_type' => 'group_by_relationship',
+            'model' => 'App\Models\Eleve',
+            'relationship_name' => 'classe', // Name of the relationship method in Eleve model
+            'group_by_field' => 'nom_classe_fr', // Concatenate the fields with a dot (.) separator
+            'chart_type' => 'bar',
+            'chart_color' => $color[$key],
+            'where_raw' => 'status_eleve=1'
+
+        ];
+    }
     $chart2[] = new LaravelChart($chart_options2);
+
    }
 
 

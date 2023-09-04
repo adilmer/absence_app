@@ -87,7 +87,7 @@
                                             @endforeach
                                             @else
                                                 <tr>
-                                                    <td colspan="2">
+                                                    <td colspan="3">
                                                         <p class="fw-semibold mb-1 text-muted"> لا يوجد من التلاميذ من تجاوز
                                                             عتبة {{$settings->nbr_jour_limit}} من الأيام <br> من الغياب غير مبرر على الأقل</p>
                                                     </td>

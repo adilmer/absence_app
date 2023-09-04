@@ -23,6 +23,7 @@ Route::prefix('/')->namespace('App\\Http\\Controllers\\')->middleware('auth')->g
     #Home
     Route::get('/','StatistiqueController@index')->name('home.index');
     Route::any('/save','HomeController@save')->name('home.save');
+    Route::any('/reset','HomeController@reset')->name('home.reset');
 
     #eleves
 Route::prefix('eleves')->group(function () {

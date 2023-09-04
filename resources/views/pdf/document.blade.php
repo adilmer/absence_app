@@ -80,7 +80,9 @@
                 </div>
             </div>
         </div>
+        @if (!$print)
         <button class="btn btn-danger noPrint col-2 mx-auto" onclick="window.print()">طباعة</button>
+        @endif
     </div>
 </body>
 </html>

@@ -26,13 +26,14 @@ class AbsenceController extends Controller
     {
         $date = date('Y-m-d');
         $dayOfWeek = Carbon::now()->dayOfWeek;
+        $id_classe = Classe::orderby('nom_classe_ar')->orderby('id_classe')->first()->id_classe ?? null;
         $eleves = Eleve::join('classes', 'classes.id_classe', '=', 'eleves.id_classe')
             ->join('seances', 'classes.id_classe', '=', 'seances.id_classe')
             ->select('eleves.*', 'eleves.id_eleve as code_eleve')
             ->with(['absences' => function ($query) use ($date) {
                 $query->where('date', $date);
             }])
-            ->where('classes.id_classe', Classe::orderby('nom_classe_ar')->orderby('id_classe')->first()->id_classe)
+            ->where('classes.id_classe',$id_classe)
             ->distinct()
             ->get();
 
@@ -49,7 +50,7 @@ class AbsenceController extends Controller
         $eleves = Eleve::join('classes', 'classes.id_classe', '=', 'eleves.id_classe')
             ->join('seances', 'classes.id_classe', '=', 'seances.id_classe')
             ->select('eleves.*', 'eleves.id_eleve as code_eleve')
-            ->where('classes.id_classe', '=', $classes->first()->id_classe)
+            ->where('classes.id_classe', '=', $classes->first()->id_classe ?? null)
             ->distinct()
             ->get();
 
@@ -82,9 +83,9 @@ class AbsenceController extends Controller
             $classe = Classe::findOrFail($id_classe);
             $information = Information::where('status_info', 1)->first();
             /// dd($eleves,compact('eleves', 'dateB', 'timeB','classe'));
-
+            $print = $request->print;
             // Session::forget('selectedIds');
-            return view('pdf.document_all', compact('eleves', 'dateB', 'timeB', 'classe', 'information'));
+            return view('pdf.document_all', compact('eleves', 'dateB', 'timeB', 'classe', 'information','print'));
         }
 
         return redirect()->back();

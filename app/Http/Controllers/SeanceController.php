@@ -38,13 +38,8 @@ class SeanceController extends Controller
         //dd($request);
         $seances = Seance::orderby('code_jours');
 
-
-
             $seances = $seances
                 ->where('id_classe', $request->text);
-
-
-
 
         $seances = $seances->get();
        // dd($seances->first());
@@ -252,6 +247,13 @@ class SeanceController extends Controller
 
         //dd($request->all(), $requestData);
 		$seance->update($requestData);
+
+        $nbr_seance =  Seance::selectRaw('(s1 + s2 + s3 + s4 + s5 + s6 + s7 + s8) as nbr_seance')->where('id_seance', $request->id_seance)->first()->nbr_seance;
+
+        $seance->update([
+            'nbr_seance'=>$nbr_seance,
+        ]);
+
 
         return redirect(route('seance.index'));
 

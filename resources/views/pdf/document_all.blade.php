@@ -38,6 +38,16 @@
                 line-height: 20px;
         }
     </style>
+    <script>
+        @if ($print)
+
+            window.print();
+
+        @endif
+        window.addEventListener('afterprint', function() {
+                history.back();
+                 });
+    </script>
 </head>
 <body style="direction: rtl " >
     <div class="container mt-4 " id="print_zone">
@@ -66,7 +76,9 @@
                 </div>
 
             </div>
+            @if (!$print)
             <button class="btn btn-danger noPrint col-2 mx-auto" onclick="window.print()">طباعة</button>
+            @endif
         </div>
     </div>
 </body>
