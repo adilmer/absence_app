@@ -16,13 +16,25 @@
         </p>
         <form class="d-flex">
           <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-            <li class="nav-item">
-              <a class="nav-link nav-icon-hover" href="javascript:void(0)">
-                <i class="ti ti-bell-ringing"></i>
-                <div class="notification bg-primary rounded-circle"></div>
-              </a>
 
-            </li>
+
+            <li class="nav-item dropdown mx-5">
+                <a class="nav-link nav-icon-hover"  href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="ti ti-bell-ringing"></i>
+                  <div class="notification bg-primary rounded-circle"></div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up mx-auto" style="min-width: 150px;left:0;right:0" aria-labelledby="drop2">
+                  <div class="message-body ">
+                    <a href="javascript:void(0)"  class="d-flex align-items-center gap-2 dropdown-item disabled">
+                      <p class="mb-0 fs-3 text-uppercase"></p>
+                    </a>
+
+                  </div>
+                </div>
+              </li>
+
+
             <li class="nav-item dropdown mx-5">
               <a class="nav-link nav-icon-hover"  href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                 aria-expanded="false">
@@ -50,4 +62,5 @@
     </nav>
   </header>
 
+@section('scripts')
 

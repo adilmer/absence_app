@@ -30,7 +30,7 @@ class EleveController extends Controller
         $id_session = Session::where('status_session',1)->first()->id_session;
         $eleves = Eleve::where('id_session',$id_session)->orderby('id_classe')->paginate(40);
         $classes = Classe::orderby('nom_classe_ar')->orderby('id_classe')->get();
-        
+
 
         return view('pages.eleves.index',compact('eleves','classes'));
     }
@@ -258,11 +258,10 @@ foreach ($names as $value) {
         $id_session = Session::where('status_session',1)->first()->id_session;
         $requestData['id_session'] = $id_session;
 
-        $parent_array = $requestData['type_parent'];
+
         //dd($requestData);
 		$eleve->update($requestData);
         $parentData=[];
-
         $parents = Parente::where('id_eleve',$request->id_eleve)->get();
         for ($id=0; $id < $parents->count() ; $id++) {
             $parent = Parente::findOrFail($requestData['id_parent'][$id]);

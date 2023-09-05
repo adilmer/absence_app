@@ -43,7 +43,9 @@ class ImportController extends Controller
         $id_session = $this->getId([$session,$annee_session],["nom_session","annee_session"],"sessions");
         $id_user = Auth()->id();
         $info = compact('academie', 'direction', 'commune','etablissement', 'id_session');
+       // dd($info);
         $information = Information::where('etablissement',$etablissement)->where('id_session',$id_session)->first();
+       // dd($information);
         if ($information) {
             $information->update($info);
         }
