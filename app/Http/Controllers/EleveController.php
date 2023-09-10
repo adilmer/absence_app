@@ -61,20 +61,13 @@ foreach ($names as $value) {
     {
         //dd($request);
         $id_session = Session::where('status_session',1)->first()->id_session;
-        $eleves = Eleve::where('id_session',$id_session)->where('status_eleve',1)->orderby('nom_ar');
+        $eleves = Eleve::where('id_session',$id_session)->orderby('id_classe')->orderby('num_eleve');
 
-        if ($request->text != '') {
+        if ($request->text != '0') {
 
             $eleves = $eleves
-                ->where(function ($query) use ($request) {
-                    $query->where('mat', 'like', '%' . $request->text . '%')
-                          ->orWhere('nom_fr', 'like', '%' . $request->text . '%')
-                          ->orWhere('nom_ar', 'like', '%' . $request->text . '%')
-                          ->orWhere('prenom_ar', 'like', '%' . $request->text . '%')
-                          ->orWhere('prenom_fr', 'like', '%' . $request->text . '%');
-                });
+                ->where('id_eleve',$request->text);
         }
-
 
         $eleves = $eleves->get();
        // dd($eleves->first());
@@ -82,7 +75,7 @@ foreach ($names as $value) {
 
         foreach ($eleves as $key => $eleves) {
 
-
+            $status = $eleves->status_eleve==1 ? 'متمدرس' : ($eleves->status_eleve==2 ? 'مغادر' : 'منقطع') ;
             $data .="<tr>
             <td class='border-bottom-0'>
               <div class='img' >
@@ -101,7 +94,7 @@ foreach ($names as $value) {
                 <span class='fw-normal'>{$eleves->classe->nom_classe_fr}</span>
             </td>
             <td class='border-bottom-0'>
-              <h6 class='mb-0 fw-normal'>{$eleves->date_naiss->format('Y-m-d')}</h6>
+              <h6 class='mb-0 fw-normal'>$status</h6>
             </td>";
             $route_details = route('eleve.details',$eleves->id_eleve);
             $route_edit = route('eleve.edit',$eleves->id_eleve);
@@ -124,22 +117,22 @@ foreach ($names as $value) {
     {
         //dd($request);
         $id_session = Session::where('status_session',1)->first()->id_session;
-        $eleves = Eleve::where('id_session',$id_session)->where('status_eleve',1)->orderby('num_eleve');
+        $eleves = Eleve::where('id_session',$id_session)->orderby('id_classe')->orderby('num_eleve');
 
-        if ($request->text != '0') {
+       if ($request->text != '0') {
 
             $eleves = $eleves
                 ->where('id_classe', $request->text);
-        }
+       }
 
 
-        $eleves = $eleves->get();
+        $eleves = $eleves->orderby('id_classe')->get();
        // dd($eleves->first());
         $data = '';
 
         foreach ($eleves as $key => $eleves) {
 
-
+            $status = $eleves->status_eleve==1 ? 'متمدرس' : ($eleves->status_eleve==2 ? 'مغادر' : 'منقطع') ;
             $data .="<tr>
             <td class='border-bottom-0'>
               <div class='img' >
@@ -158,7 +151,7 @@ foreach ($names as $value) {
                 <span class='fw-normal'>{$eleves->classe->nom_classe_fr}</span>
             </td>
             <td class='border-bottom-0'>
-              <h6 class='mb-0 fw-normal'>{$eleves->date_naiss->format('Y-m-d')}</h6>
+              <h6 class='mb-0 fw-normal'>$status</h6>
             </td>";
             $route_details = route('eleve.details',$eleves->id_eleve);
             $route_edit = route('eleve.edit',$eleves->id_eleve);

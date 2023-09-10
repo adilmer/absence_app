@@ -45,11 +45,11 @@ class StatistiqueController extends Controller
     $text .= ")";
         array_push($classe_ar,$text);
     }
-
+    $num_ar = ['الأول','الثاني','الثالث','الرابع','الخامس','السادس'];
    foreach ($classe_ar as $key => $value) {
     if($value!=")") {
     $chart_options2 = [
-        'chart_title' => ' التلاميذ حسب المستوى'.' '.$key+1,
+        'chart_title' => ' التلاميذ حسب المستوى'.' '.$num_ar[$key],
         'report_type' => 'group_by_relationship',
         'model' => 'App\Models\Eleve',
         'relationship_name' => 'classe', // Name of the relationship method in Eleve model
@@ -61,7 +61,7 @@ class StatistiqueController extends Controller
     ];}
     else{
         $chart_options2 = [
-            'chart_title' => ' التلاميذ حسب المستوى'.' '.$key+1,
+            'chart_title' => ' التلاميذ حسب المستوى'.' '.$num_ar[$key],
             'report_type' => 'group_by_relationship',
             'model' => 'App\Models\Eleve',
             'relationship_name' => 'classe', // Name of the relationship method in Eleve model

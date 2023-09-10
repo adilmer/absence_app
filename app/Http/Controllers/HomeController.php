@@ -42,7 +42,7 @@ class HomeController extends Controller
         $setting =  Setting::where('id_user',Auth::user()->id)->first();
 
        // dd($requestData);
-        $requestData = $request->truncate();
+        $requestData = $request->all();
         $requestData['colors'] = implode(",", $request->color);
         //dd( $requestData );
         $setting->update($requestData);

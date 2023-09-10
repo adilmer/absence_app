@@ -3,8 +3,15 @@
     <div class="inputsearch row" style="justify-content: flex-end;">
 
         <div class="col-sm-6 pl-0 mb-2  ">
-            <input type="text" class="form-control " id="txt_cherch" placeholder="بحث ..." aria-label="Recipient's username"
-                aria-describedby="button-addon2">
+           {{--  <input type="text" class="form-control " id="txt_cherch" placeholder="بحث ..." aria-label="Recipient's username"
+                aria-describedby="button-addon2"> --}}
+                <input class="form-control" list="eleves_list" id="list_eleves"  placeholder="بحث...">
+                <input type="hidden" class="form-control" id="id_eleve" name="id_eleve" placeholder="" value="">
+                <datalist id="eleves_list">
+                    @foreach ($eleves as $eleve)
+                    <option data-id="{{$eleve->id_eleve}}" value="{{$eleve->nom_ar}} {{$eleve->prenom_ar}}" >
+                    @endforeach
+                </datalist>
         </div>
         <div class="col-sm-3 pl-0 mb-2  ">
             <select id="id_classe" class="form-select">
@@ -182,19 +189,36 @@
 @endsection
 
 @section('script')
-    $("#txt_cherch").on("input", function(){
-    $text = this.value
-    $url = "{{ route('eleve.filter') }}"
+
+list_eleves.addEventListener('change', getIdEleve);
+    function getIdEleve() {
+        var input = document.getElementById("list_eleves");
+        var selectedOption = document.querySelector("#eleves_list option[value='" + input.value + "']");
+
+        if (selectedOption) {
+          var id_eleve = selectedOption.getAttribute("data-id");
+           performSearch(id_eleve)
+        }
+      }
+
+ $("#list_eleves").on("input", function() {
+    if ($("#list_eleves").val() == "") {
+        performSearch(0);
+    }
+});
+
+function performSearch($text) {
+    $url = "{{ route('eleve.filter') }}";
     $("#table_eleves").html("");
+
     if ($text !== '') {
         $(".custom-pagination").hide();
     } else {
         $(".custom-pagination").show();
     }
 
-    get_table_ajax_find($text,$url,"#table_eleves")
-
-    });
+    get_table_ajax_find($text, $url, "#table_eleves");
+}
     $("#id_classe").on("change", function(){
     $id = this.value
     $url = "{{ route('eleve.filterByclasse') }}"

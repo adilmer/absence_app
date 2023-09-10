@@ -35,6 +35,13 @@ aria-hidden="true">
                 <label for="nbr_jours_limit"> مدة تتبع الغياب بالأيام </label>
                 <input type="number" class="form-control" value="{{$settings->periode_jours}}" autocomplete="off" id="periode_jours" name="periode_jours" placeholder="" >
             </div>
+            <div class="form-group my-2">
+                <label for="w_paper"> طول ورقة السماح بالمليمتر</label>
+                <input type="number" step="0.01" class="form-control" value="{{$settings->w_paper}}" autocomplete="off" id="w_paper" name="w_paper" placeholder="" >
+                <label for="h_paper"> عرض ورقة السماح بالمليمتر</label>
+                <input type="number" step="0.01" class="form-control" value="{{$settings->h_paper}}" autocomplete="off" id="h_paper" name="h_paper" placeholder="" >
+            </div>
+
 
                 <label for="nbr_jours_limit mt-2"> اختيار الألوان</label>
                 <div class="form-group mt-2 mx-5">

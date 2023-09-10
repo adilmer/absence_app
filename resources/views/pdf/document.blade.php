@@ -19,10 +19,17 @@
                 display: none;
             }
 
-            @page {
-                size: A7 landscape;
-            }
+            @php
+                       $settings = DB::table('settings')->first();
+                        $colors = explode(",",$settings->colors);
+            @endphp
 
+            @page {
+
+                size: {{$settings->w_paper ?? 105}} mm {{$settings->h_paper ?? 74}} mm;
+                margin: 0px;
+            }
+            
             body {
                 margin: 0px;
             }

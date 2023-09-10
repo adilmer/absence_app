@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
-
 /**
  * Summary of classeController
  */
@@ -22,6 +21,7 @@ class ClasseController extends Controller
     public function index()
     {
         $classes = Classe::all();
+
 
         return view('pages.classes.index',compact('classes'));
     }
