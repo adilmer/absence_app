@@ -16,6 +16,9 @@ class StatistiqueController extends Controller
     public function index()
     {
 
+       if(auth()->user()->status_user==0){
+        return redirect(route('home.change_password'));
+       }
         $settings = DB::table('settings')->where('id_user',Auth::id())->first();
         $color = explode(",",$settings->colors);
         //dd($color);

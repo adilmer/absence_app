@@ -24,6 +24,9 @@ class AbsenceController extends Controller
 
     public function index()
     {
+        if(auth()->user()->status_user==0){
+            return redirect(route('home.change_password'));
+           }
         $date = date('Y-m-d');
         $dayOfWeek = Carbon::now()->dayOfWeek;
         $id_classe = Classe::orderby('nom_classe_ar')->orderby('id_classe')->first()->id_classe ?? null;

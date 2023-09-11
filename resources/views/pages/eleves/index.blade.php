@@ -3,19 +3,18 @@
     <div class="inputsearch row" style="justify-content: flex-end;">
 
         <div class="col-sm-6 pl-0 mb-2  ">
-           {{--  <input type="text" class="form-control " id="txt_cherch" placeholder="بحث ..." aria-label="Recipient's username"
+            {{--  <input type="text" class="form-control " id="txt_cherch" placeholder="بحث ..." aria-label="Recipient's username"
                 aria-describedby="button-addon2"> --}}
-                <input class="form-control" list="eleves_list" id="list_eleves"  placeholder="بحث...">
-                <input type="hidden" class="form-control" id="id_eleve" name="id_eleve" placeholder="" value="">
-                <datalist id="eleves_list">
-                    @foreach ($eleves as $eleve)
-                    <option data-id="{{$eleve->id_eleve}}" value="{{$eleve->nom_ar}} {{$eleve->prenom_ar}}" >
-                    @endforeach
-                </datalist>
+            <input class="form-control" list="eleves_list" id="list_eleves" placeholder="بحث...">
+            <input type="hidden" class="form-control" id="id_eleve" name="id_eleve" placeholder="" value="">
+            <datalist id="eleves_list">
+                @foreach ($eleves as $eleve)
+                    <option data-id="{{ $eleve->id_eleve }}" value="{{ $eleve->nom_ar }} {{ $eleve->prenom_ar }}">
+                @endforeach
+            </datalist>
         </div>
         <div class="col-sm-3 pl-0 mb-2  ">
             <select id="id_classe" class="form-select">
-                <option value="0" selected> - كل الأقسام ... </option>
                 @foreach ($classes as $classes)
                     <option value="{{ $classes->id_classe }}">{{ $classes->nom_classe_ar }} ({{ $classes->nom_classe_fr }})
                     </option>
@@ -44,17 +43,26 @@
                         <h5 class="card-title  fw-semibold mb-4">لائحة التلاميذ</h5>
                         <h6 class="my-4">
                             @php
-                                $id_session = App\Models\Session::where('status_session',1)->first()->id_session;
-                                $c1 = App\Models\Eleve::where('id_session',$id_session)->where('status_eleve',1)->get();
-                                $c2 = App\Models\Eleve::where('id_session',$id_session)->where('status_eleve',2)->get();
-                                $c3 = App\Models\Eleve::where('id_session',$id_session)->where('status_eleve',3)->get();
-                                $c4 = App\Models\Eleve::where('id_session',$id_session)->where('status_eleve',4)->get();
+                                $id_session = App\Models\Session::where('status_session', 1)->first()->id_session;
+                                $c1 = App\Models\Eleve::where('id_session', $id_session)
+                                    ->where('status_eleve', 1)
+                                    ->get();
+                                $c2 = App\Models\Eleve::where('id_session', $id_session)
+                                    ->where('status_eleve', 2)
+                                    ->get();
+                                $c3 = App\Models\Eleve::where('id_session', $id_session)
+                                    ->where('status_eleve', 3)
+                                    ->get();
+                                $c4 = App\Models\Eleve::where('id_session', $id_session)
+                                    ->where('status_eleve', 4)
+                                    ->get();
                             @endphp
-                        <span class="alert alert-success p-2">العدد الإجمالي للمتمدرسين : {{$c1->count() ?? 0}}</span>
-                        <span class="alert alert-warning p-2">العدد الإجمالي للمغادرين  : {{$c2->count() ?? 0}}</span>
-                        <span class="alert alert-danger p-2">العدد الإجمالي للمنقطعين  : {{$c3->count() ?? 0}}</span>
-                        <span class="alert alert-info p-2">العدد الإجمالي لغير الملتحقين  : {{$c4->count() ?? 0}}</span>
-                    </h6>
+                            <span class="alert alert-success p-2">العدد الإجمالي للمتمدرسين : {{ $c1->count() ?? 0 }}</span>
+                            <span class="alert alert-warning p-2">العدد الإجمالي للمغادرين : {{ $c2->count() ?? 0 }}</span>
+                            <span class="alert alert-danger p-2">العدد الإجمالي للمنقطعين : {{ $c3->count() ?? 0 }}</span>
+                            <span class="alert alert-info p-2">العدد الإجمالي لغير الملتحقين :
+                                {{ $c4->count() ?? 0 }}</span>
+                        </h6>
                         <!--  pagination links -->
                         <div id="paginate" class="d-flex justify-content-center">
                             <span class="custom-pagination">
@@ -100,7 +108,8 @@
                                             <h6 class="fw-semibold mb-0">{{ $eleve->mat }}</h6>
                                         </td>
                                         <td class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-1 ">{{ $eleve->nom_ar . ' ' . $eleve->prenom_ar }}</h6>
+                                            <h6 class="fw-semibold mb-1 ">{{ $eleve->nom_ar . ' ' . $eleve->prenom_ar }}
+                                            </h6>
                                             <span
                                                 class="fw-normal text-uppercase">{{ $eleve->nom_fr . ' ' . $eleve->prenom_fr }}</span>
                                         </td>
@@ -109,7 +118,9 @@
                                             <span class="fw-normal">{{ $eleve->classe->nom_classe_fr ?? '' }}</span>
                                         </td>
                                         <td class="border-bottom-0">
-                                            <h6 class="mb-0 fw-normal">{{ $eleve->status_eleve==1 ? 'متمدرس' : ($eleve->status_eleve==2 ? 'مغادر' : 'منقطع') }}</h6>
+                                            <h6 class="mb-0 fw-normal">
+                                                {{ $eleve->status_eleve == 1 ? 'متمدرس' : ($eleve->status_eleve == 2 ? 'مغادر' : 'منقطع') }}
+                                            </h6>
                                         </td>
                                         <td class="border-bottom-0 text-left">
                                             <div class=" gap-2">
@@ -189,44 +200,43 @@
 @endsection
 
 @section('script')
-
-list_eleves.addEventListener('change', getIdEleve);
+    list_eleves.addEventListener('change', getIdEleve);
     function getIdEleve() {
-        var input = document.getElementById("list_eleves");
-        var selectedOption = document.querySelector("#eleves_list option[value='" + input.value + "']");
+    var input = document.getElementById("list_eleves");
+    var selectedOption = document.querySelector("#eleves_list option[value='" + input.value + "']");
 
-        if (selectedOption) {
-          var id_eleve = selectedOption.getAttribute("data-id");
-           performSearch(id_eleve)
-        }
-      }
-
- $("#list_eleves").on("input", function() {
-    if ($("#list_eleves").val() == "") {
-        performSearch(0);
+    if (selectedOption) {
+    var id_eleve = selectedOption.getAttribute("data-id");
+    performSearch(id_eleve)
     }
-});
+    }
 
-function performSearch($text) {
+    $("#list_eleves").on("input", function() {
+    if ($("#list_eleves").val() == "") {
+    performSearch(0);
+    }
+    });
+
+    function performSearch($text) {
     $url = "{{ route('eleve.filter') }}";
     $("#table_eleves").html("");
 
     if ($text !== '') {
-        $(".custom-pagination").hide();
+    $(".custom-pagination").hide();
     } else {
-        $(".custom-pagination").show();
+    $(".custom-pagination").show();
     }
 
     get_table_ajax_find($text, $url, "#table_eleves");
-}
+    }
     $("#id_classe").on("change", function(){
     $id = this.value
     $url = "{{ route('eleve.filterByclasse') }}"
     $("#table_eleves").html("");
     if($id !=0) {
-        $(".custom-pagination").hide();
+    $(".custom-pagination").hide();
     } else {
-        $(".custom-pagination").show();
+    $(".custom-pagination").show();
     }
 
     get_table_ajax_find($id,$url,"#table_eleves")

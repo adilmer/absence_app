@@ -17,8 +17,8 @@
                     <label for="email" class="form-label"> البريد الإلكتروني</label>
                     <input type="email" class="form-control"  autocomplete="off"  name="email" id="email" aria-describedby="emailHelp">
                     @error('email')
-                    <p class="alert small  alert-danger p-1" role="alert">
-                        <strong>{{ $message }}</strong>
+                    <p class="alert small  alert-danger p-1 my-1" role="alert">
+                        <strong> بيانات الدخول غير صحيحة</strong>
                     </p>
                                 @enderror
                   </div>
@@ -27,7 +27,7 @@
                     <input type="password" class="form-control "  autocomplete="off"  name="password" id="password">
                     @error('password')
                                     <p class="alert small  alert-danger p-1" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>كلمة السر غير صحيحة</strong>
                                     </p>
                                 @enderror
                   </div>

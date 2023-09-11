@@ -24,6 +24,9 @@ Route::prefix('/')->namespace('App\\Http\\Controllers\\')->middleware('auth')->g
     Route::get('/','StatistiqueController@index')->name('home.index');
     Route::any('/save','HomeController@save')->name('home.save');
     Route::any('/reset','HomeController@reset')->name('home.reset');
+    Route::any('/change_password','HomeController@change_password')->name('home.change_password');
+    Route::any('/update_password','HomeController@update_password')->name('home.update_password');
+    Route::post('/read_notification','HomeController@read_notification')->name('home.read_notification');
 
     #eleves
 Route::prefix('eleves')->group(function () {
@@ -98,4 +101,4 @@ Route::prefix('motifAbsences')->group(function () {
 });
 
 Auth::routes();
- //Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+//Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');

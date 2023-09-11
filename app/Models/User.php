@@ -14,6 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * Class User
  *
  * @property int $id
+ * @property int $status_user
  * @property string $name
  * @property string $email
  * @property Carbon|null $email_verified_at
@@ -31,7 +32,8 @@ class User extends Authenticatable
 	public $timestamps = false;
 
 	protected $casts = [
-		'email_verified_at' => 'datetime'
+		'email_verified_at' => 'datetime',
+        'status_user'=> 'int'
 	];
 
 	protected $hidden = [
@@ -43,6 +45,7 @@ class User extends Authenticatable
 		'name',
 		'email',
 		'email_verified_at',
+        'status_user',
 		'password',
 		'remember_token'
 	];
